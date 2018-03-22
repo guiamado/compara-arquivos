@@ -29,13 +29,24 @@ typedef struct
 /*Fim das Structs*/
 
 /*Inicio dos cabecalhos de funcoes*/
-void  abreArquivos();
+void	abreArquivos ();
+void	iniciaLista (Palavras *listaPalavras);
+int		listaVazia ( Palavras *listaPalavras );
 /*Fim dos cabecalhos de funcoes*/
 
 /*Inicio da Funcao Main*/
 int main() {
-  
-  abreArquivos();
+	
+	Palavras *listaPalavras = (Palavras *) malloc(sizeof(Palavras));
+
+	iniciaLista(listaPalavras);
+	
+	if (!listaPalavras)
+	{
+		printf("Sem memoria disponivel\n");
+		exit(1);
+	}
+	abreArquivos();
   
   return 0;
 }/*Termino da Funcao Main*/
@@ -87,3 +98,17 @@ void abreArquivos(){
 	free(teste);
   printf("%d\n", contaPalavra);
 }/*fim da funcao que abre arquivos*/
+
+/*Inicio da funcao para iniciar lista*/
+void	iniciaLista (Palavras *listaPalavras)
+{
+	listaPalavras->prox = NULL;
+}
+/*Inicio da funcao para lista vazia*/
+int		listaVazia( Palavras *listaPalavras )
+{
+	if (listaPalavras->prox == NULL)
+		return 1;
+	else
+		return 0;
+}
