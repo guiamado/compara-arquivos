@@ -7,6 +7,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#define arquivos 2
+#define tamanho 100
+
+typedef struct{
+
+ 	char* nome;
+ 	FILE *file;
+
+} Arquivo;
 
 void  abreArquivos();
 
@@ -18,28 +27,48 @@ int main() {
 }
 
 void abreArquivos(){
-  int ch, contaPalavra, k;
+  int ch, contaPalavra, k,i;
   contaPalavra = 0;
-  for (k = 0; k < 2; k++) 
+
+  Arquivo* teste = (Arquivo *) malloc(arquivos*sizeof(Arquivo));
+  for (i=0 ; i<arquivos ; i++)
+    {   
+		teste[i].nome = (char *) malloc((tamanho)*sizeof(char));
+		teste[i].nome = (FILE *) malloc((tamanho)*sizeof(FILE));
+	}
+
+  for (k = 0; k < arquivos; k++) 
   {
-      char filename[3];
+      char filename[100];
+
       FILE *file;
-      sprintf(filename, "texto%d.txt", (k+1)); /* texto1.txt ; texto2.txt  ; ... ; texton.txt */
-      file = fopen(filename, "r");
-      while (((ch = fgetc(file)) != EOF))
+      // sprintf(filename, "texto%d.txt", (k+1)); /* texto1.txt ; texto2.txt  ; ... ; textoN.txt */
+      sprintf(teste[k].nome, "texto%d.txt", (k+1)); /* texto1.txt ; texto2.txt  ; ... ; textoN.txt */
+
+      // file = fopen(filename, "r");
+      teste[k].file = fopen(teste[k].nome, "r");
+      
+      while (((ch = fgetc(teste[k].file)) != EOF))
       {
           if(isalpha(ch))
             contaPalavra++;
       }
 
-      if (file != NULL) 
+      if (teste[k].file != NULL) 
       {
-          fclose(file);
+          fclose(teste[k].file);
       } else 
       {
           perror(filename);
-          return 0;
+          exit(1);
       }
+  		printf("%s\n",teste[0].nome );
+
   }
+  for (i=0 ; i<arquivos ; i++)
+    {
+        free(teste[i].nome);
+    }
+	free(teste);
   printf("%d\n", contaPalavra);
 }
