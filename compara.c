@@ -10,22 +10,37 @@
 #define arquivos 2
 #define tamanho 100
 
-typedef struct{
+/* Definindo Structs a serem usadas*/
+
+typedef struct
+{
 
  	char* nome;
  	FILE *file;
 
 } Arquivo;
 
-void  abreArquivos();
+typedef struct 
+{
+	int word;
+	struct Palavras *prox;
+}Palavras;
 
+/*Fim das Structs*/
+
+/*Inicio dos cabecalhos de funcoes*/
+void  abreArquivos();
+/*Fim dos cabecalhos de funcoes*/
+
+/*Inicio da Funcao Main*/
 int main() {
   
   abreArquivos();
   
   return 0;
-}
+}/*Termino da Funcao Main*/
 
+/*Inicio da funcao que abre arquivos*/
 void abreArquivos(){
   int ch, contaPalavra, k,i;
   contaPalavra = 0;
@@ -62,7 +77,7 @@ void abreArquivos(){
           perror(filename);
           exit(1);
       }
-  		printf("%s\n",teste[0].nome );
+  		printf("%s\n",teste[k].nome );
 
   }
   for (i=0 ; i<arquivos ; i++)
@@ -71,4 +86,4 @@ void abreArquivos(){
     }
 	free(teste);
   printf("%d\n", contaPalavra);
-}
+}/*fim da funcao que abre arquivos*/
