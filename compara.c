@@ -60,14 +60,14 @@ void abreArquivos(){
   for (i=0 ; i<arquivos ; i++)
     {   
 		teste[i].nome = (char *) malloc((tamanho)*sizeof(char));
-		teste[i].nome = (FILE *) malloc((tamanho)*sizeof(FILE));
+		teste[i].file = (FILE *) malloc((tamanho)*sizeof(FILE));
 	}
 
   for (k = 0; k < arquivos; k++) 
   {
       char filename[100];
 
-      FILE *file;
+      //FILE *file;
       // sprintf(filename, "texto%d.txt", (k+1)); /* texto1.txt ; texto2.txt  ; ... ; textoN.txt */
       sprintf(teste[k].nome, "texto%d.txt", (k+1)); /* texto1.txt ; texto2.txt  ; ... ; textoN.txt */
 
