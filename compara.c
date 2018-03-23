@@ -21,36 +21,36 @@ typedef struct Arquivo
 
 typedef struct Palavras
 {
-	char word[tamanho];
+	char* word;
 	struct Palavras *prox;
 }Palavras;
 /*Fim das Structs*/
 typedef struct Lista
 {
-	Palavras palavras[5];
-}
+	Palavras* palavras;
+}Lista;
 /*Inicio dos cabecalhos de funcoes*/
 void	abreArquivos ();
 Palavras* criaListaPalavra();
 int 	iniciaListaVazia(Palavras* listaPalavras);
-Palavras*	inserePalavraLista ( Palavras* listaPalavras, char i);
+Palavras*	inserePalavraLista ( Palavras* listaPalavras, char* i);
 void	imprimePalavraLista ( Palavras* listaPalavras);
 Palavras* buscaPalavraLista ( Palavras* listaPalavras, char v );
 void liberaPalavraLista (Palavras* listaPalavras);
 int comparaPalavraLista (Palavras* listaPalavras1, Palavras* listaPalavras2);
-void pegaPalavra(Palavras* listaPalavras, Arquivo* teste)
+void pegaPalavra(Palavras* listaPalavras, Arquivo* teste);
 /*Fim dos cabecalhos de funcoes*/
 
 /*Inicio da Funcao Main*/
 int main() {
-	
-	abreArquivos();
+	Lista* listinha = (Lista *) malloc(5*sizeof(Lista)); 	
+	abreArquivos(listinha);
   
  	return 0;
 }/*Termino da Funcao Main*/
 
 /*Inicio da funcao que abre arquivos*/
-void abreArquivos(Palavras* listaPalavra){
+void abreArquivos(Lista* arrayDePalavras){
   	int ch, contaPalavra, k,i;
   	contaPalavra = 0;
   	char naPalavra = 'F', vh;
@@ -64,12 +64,16 @@ void abreArquivos(Palavras* listaPalavra){
 
   	for (k = 0; k < arquivos; k++) 
 	{
+		
+		Palavras* listaPalavras;
+		listaPalavras = criaListaPalavra();
 
 		sprintf(teste[k].nome, "texto%d.txt", (k+1)); /* texto1.txt ; texto2.txt  ; ... ; textoN.txt */
 
 		teste[k].file = fopen(teste[k].nome, "r");
 
-		pegaPalavra(listaPalavra, teste[k]);
+		pegaPalavra(listaPalavras, &teste[k]);
+		arrayDePalavras->palavras = listaPalavras;
 
 		if (teste[k].file != NULL) 
 		{
@@ -171,7 +175,8 @@ void pegaPalavra(Palavras* listaPalavras, Arquivo* teste)
 	char treta[100];
 	while (treta != EOF)
 	{
-		fscanf(teste.file, "%s", treta);
-		inserePalavra(listaPalavras, treta);
+		fscanf(teste->file, "%s", treta);
+		printf("%s", treta);
+		inserePalavraLista(listaPalavras, treta);
 	}
 }
