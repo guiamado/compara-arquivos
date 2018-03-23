@@ -33,6 +33,7 @@ typedef struct Palavras
 
 /*Inicio dos cabecalhos de funcoes*/
 void	abreArquivos ();
+Palavras* criaListaPalavra();
 int 	iniciaListaVazia(Palavras* listaPalavras);
 Palavras*	inserePalavraLista ( Palavras* listaPalavras, char i);
 void	imprimePalavraLista ( Palavras* listaPalavras);
@@ -58,19 +59,20 @@ int main() {
 
 /*Inicio da funcao que abre arquivos*/
 void abreArquivos(){
-  int ch, contaPalavra, k,i;
-  contaPalavra = 0;
+  	int ch, contaPalavra, k,i;
+  	contaPalavra = 0;
+  	char naPalavra = 'F';
 
-  Arquivo* teste = (Arquivo *) malloc(arquivos*sizeof(Arquivo));
-  for (i=0 ; i<arquivos ; i++)
-    {   
-		teste[i].nome = (char *) malloc((tamanho)*sizeof(char));
-		teste[i].file = (FILE *) malloc(sizeof(FILE));
-	}
+  	Arquivo* teste = (Arquivo *) malloc(arquivos*sizeof(Arquivo));
+  	for (i=0 ; i<arquivos ; i++)
+    	{   
+			teste[i].nome = (char *) malloc((tamanho)*sizeof(char));
+			teste[i].file = (FILE *) malloc(sizeof(FILE));
+		}
 
-  for (k = 0; k < arquivos; k++) 
-  {
-    	char filename[100], treta[50];
+  	for (k = 0; k < arquivos; k++) 
+  	{
+    	char treta[50];
 
       // FILE *file;
       // sprintf(filename, "texto%d.txt", (k+1)); /* texto1.txt ; texto2.txt  ; ... ; textoN.txt */
@@ -79,17 +81,41 @@ void abreArquivos(){
       // file = fopen(filename, "r");
     	teste[k].file = fopen(teste[k].nome, "r");
       
-     	fscanf(teste[k].file, "%s", treta[k]);
-		while (((fscanf(teste[k].file, "%s", treta[k])) != EOF))
-		{
-			contaPalavra++;
-		}
+     	// fscanf(teste[k].file, "%s", treta[k]);
+     	// printf("%s\n",treta[k] );
+     	// printf("%s\n",teste[k].nome );
+		// while (((fscanf(teste[k].file, "%s", treta[k])) != EOF))
+		// {
+		// 	contaPalavra++;
+		// }
+
+		// for (k = 0; k < arquivos; k++) 
+  		// {
+  			// Palavras* listaPalavras;
+  			// listaPalavras = criaListaPalavra();
+  			// fscanf(teste[k].file, "%s", treta[k]);
+  			// printf("%s\n",treta[k]);
+  		// }
       //tentar usar a funcao fscanf
-      // while (((ch = fgetc(teste[k].file)) != EOF))
-      // {
-      //   	if(isalpha(ch))
-      //   		contaPalavra++;
-      // }
+     	while (((ch = fgetc(teste[k].file)) != EOF))
+      	{
+        	if(isalpha(ch))
+        	{
+        		printf("%c",ch );
+        		naPalavra = 'D';
+        	}
+        	if(isspace(ch))
+        	{
+        		if(naPalavra == 'D')
+        		{
+        			naPalavra = 'F';
+        			printf("\n");
+        			contaPalavra++;
+        		}
+        		else
+        			continue;
+        	}
+      	}
 
     	if (teste[k].file != NULL) 
       	{
@@ -101,16 +127,21 @@ void abreArquivos(){
       	}
   		printf("%s\n",teste[k].nome );
 
-  }
-  for (i=0 ; i<arquivos ; i++)
+  	}
+  	for (i=0 ; i<arquivos ; i++)
     {
         free(teste[i].nome);
-        free(teste[i].file);
     }
     if (k == arquivos)
 		free(teste);
-  printf("%d\n", contaPalavra);
+  	printf("%d\n", contaPalavra);
 }/*fim da funcao que abre arquivos*/
+
+/*Inicio da funcao de criacao da lista*/
+Palavras* criaListaPalavra()
+{
+	return NULL;
+}/*Fim da funcao de criacao de lista*/
 
 /*Inicio da funcao para iniciar lista*/
 int 	iniciaListaVazia ( Palavras* listaPalavras )
