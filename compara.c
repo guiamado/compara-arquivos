@@ -133,11 +133,11 @@ Palavras* buscaPalavraLista ( Palavras* listaPalavras, char v )
 {
 	Palavras *p;
 
-	for ( p = listaPalavras; p != NULL; p = p->prox )
-	{
-		if (p->word == v)
-			return p;
-	}
+	//for ( p = listaPalavras; p != NULL; p = p->prox )
+	//{
+	//	if (p->word == v)
+	//		return p;
+	//}
 	return NULL;
 } /*fim da funcao que busca pela lista*/
 
@@ -172,11 +172,14 @@ int comparaPalavraLista (Palavras* listaPalavras1, Palavras* listaPalavras2)
 
 void pegaPalavra(Palavras* listaPalavras, Arquivo* teste)
 {
+	int contaPalavra = 0;
 	char treta[100];
-	while (treta != EOF)
+	while (feof(teste->file) == 0)
 	{
 		fscanf(teste->file, "%s", treta);
-		printf("%s", treta);
+		printf("%s\n", treta);
 		inserePalavraLista(listaPalavras, treta);
+		contaPalavra++;
+		printf("%d\n", contaPalavra);
 	}
 }
